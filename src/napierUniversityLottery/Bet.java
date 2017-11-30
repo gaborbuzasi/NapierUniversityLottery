@@ -3,6 +3,11 @@ package napierUniversityLottery;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Bet class provides the data structure for a bet that will be placed in the lottery
+ * @author Gabor Buzasi
+ *
+ */
 public class Bet {
 	 
 	private String Name;
@@ -25,6 +30,11 @@ public class Bet {
 		Name = name;
 	}
 	
+	/**
+	 * Adds the number to your bet
+	 * @param number Number to place in your bet
+	 * @return Boolean whether adding your number to the bet was successful
+	 */
 	public Boolean addChosenNumber(int number) {
 		if (ChosenNumbers.size() < Lottery.MAX_NUMBERS_PER_BET) {
 			ChosenNumbers.add(number);
@@ -36,6 +46,11 @@ public class Bet {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @param number The number to find in the Bet
+	 * @return The index of the number if found in your bet otherwise -1
+	 */
 	public int findNumberInBet(int number) {
 		return ChosenNumbers.indexOf(number);
 	}
@@ -47,12 +62,16 @@ public class Bet {
 		return Cost;
 	}
 	
+	/**
+	 * Retrieves all numbers placed in the bet
+	 * @return A list of integers
+	 */
 	public List<Integer> getChosenNumbers() {
 		return ChosenNumbers;
 	}
 
 	/**
-	 * @return the isWinning
+	 * @return a boolean whether your Bet is winning or not
 	 */
 	public boolean isWinning() {
 		return IsWinning;

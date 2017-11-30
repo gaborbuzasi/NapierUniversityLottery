@@ -4,6 +4,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The main class starting the UI class and handling the bets
+ * @author Gabor Buzasi
+ *
+ */
 public class Lottery {
 
 	private static List<Bet> betsPlaced = new ArrayList<Bet>();

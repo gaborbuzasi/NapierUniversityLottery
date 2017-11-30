@@ -19,6 +19,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+/**
+ * Resposible for drawing the UI and handling events occured on the UI
+ * @author Gabor Buzasi
+ *
+ */
 public class LotteryUI {
 	
 	private static JPanel panel = new JPanel();
@@ -54,11 +59,18 @@ public class LotteryUI {
 		frameConstraints.weighty = 1;
 		frame.add(panel, frameConstraints);
 		
+		// Add header message to UI
 		addHeaderMessage();
+		
+		// Add Name input field to UI
 		addLabelAndInputPair("Your name: ", 20);
+		
+		// Add the required amount of input fields for the numbers in a bet
 		addLotteryInputFields();
 		
 		addButtons();
+		
+		// Add list that will display the results once bet is drawn
 		addList();
 		
 		frame.pack();
@@ -66,6 +78,11 @@ public class LotteryUI {
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Adds a label at the top of the UI 
+	 * that asks the user to enter the 
+	 * chosen numbers for a bet
+	 */
 	private static void addHeaderMessage() {
 		GridBagConstraints headerConstraint = new GridBagConstraints();
 		headerConstraint.gridy = rowIndexer;
@@ -85,6 +102,11 @@ public class LotteryUI {
 		rowIndexer++;
 	}
 	
+	/**
+	 * Adds all the four buttons that are required
+	 * to be able to control the game:
+	 * Submit bet, Lucky dip, Draw game, Reset Lottery 
+	 */
 	private static void addButtons() {
 		GridBagConstraints submitConstraint = new GridBagConstraints();
 		submitConstraint.gridwidth = 2;
@@ -93,51 +115,14 @@ public class LotteryUI {
 		JButton submitButton = new JButton("Submit bet!");
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Lottery.isBetOverLimit()) {
-					JOptionPane.showMessageDialog(panel, "You need to reset the lottery first.");
-					return;
-				}
-				
-				if (Lottery.addBet(validateInput())) {
-					JOptionPane.showMessageDialog(panel, "Bet was successfully added!");
-					drawButton.setEnabled(true);
-					updateBetNumberAndClearInputs();
-					if (Lottery.checkNumberOfBetsForDraw()) {
-						drawButton.setEnabled(false);
-						JOptionPane.showMessageDialog(panel, "The lottery has been drawn");
-					}
-				}
+				betSubmitHandler();
 			}
 		});
 		
 		JButton luckyButton = new JButton("Lucky dip!");
 		luckyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String name = lstOfInputs.get(0).getText();
-				if (name.length() > 2) {
-					if (Lottery.isMaxNameCountReached(name)) {
-						maxNameCountNotification();
-						return;
-					}
-
-					Bet b = Lottery.luckyBet(name);
-					
-					if (b == null) {
-						JOptionPane.showMessageDialog(panel, "You need to reset the lottery first.");
-						return;
-					}
-					
-					JOptionPane.showMessageDialog(panel, "Lucky dip (" + ConversionHelpers.arrayToCommaDelimited(b.getChosenNumbers()) + ") was successfully added!");
-					drawButton.setEnabled(true);
-					updateBetNumberAndClearInputs();
-					if (Lottery.checkNumberOfBetsForDraw()) {
-						drawButton.setEnabled(false);
-						JOptionPane.showMessageDialog(panel, "The lottery has been drawn");
-					}
-				}
-				else {
-					wrongBetterNameNotification();
-				}
+				luckyBetSubmitHandler();
 			}
 		});
 		
@@ -178,14 +163,61 @@ public class LotteryUI {
 		panel.add(drawPanel, drawConstraint);
 	}
 	
-	public static void updateBetNumberAndClearInputs() {
-		headerLabel.setText("Please enter your bet number " + Lottery.getBetIndexer() + ": ");
+	/**
+	 * Handles the event when the 'Submit bet' button was clicked
+	 */
+	private static void betSubmitHandler() {
+		if (Lottery.isBetOverLimit()) {
+			JOptionPane.showMessageDialog(panel, "You need to reset the lottery first.");
+			return;
+		}
 		
-		for (int i = 1; i < lstOfInputs.size(); i++) {
-			lstOfInputs.get(i).setText("");
+		if (Lottery.addBet(validateInput())) {
+			JOptionPane.showMessageDialog(panel, "Bet was successfully added!");
+			drawButton.setEnabled(true);
+			updateBetNumberAndClearInputs();
+			if (Lottery.checkNumberOfBetsForDraw()) {
+				drawButton.setEnabled(false);
+				JOptionPane.showMessageDialog(panel, "The lottery has been drawn");
+			}
 		}
 	}
 	
+	/**
+	 * Handles the event when the 'Lucky bet' button was clicked
+	 */
+	private static void luckyBetSubmitHandler() {
+		String name = lstOfInputs.get(0).getText();
+		if (name.length() > 2) {
+			if (Lottery.isMaxNameCountReached(name)) {
+				maxNameCountNotification();
+				return;
+			}
+
+			Bet b = Lottery.luckyBet(name);
+			
+			if (b == null) {
+				JOptionPane.showMessageDialog(panel, "You need to reset the lottery first.");
+				return;
+			}
+			
+			JOptionPane.showMessageDialog(panel, "Lucky dip (" + ConversionHelpers.arrayToCommaDelimited(b.getChosenNumbers()) + ") was successfully added!");
+			drawButton.setEnabled(true);
+			updateBetNumberAndClearInputs();
+			if (Lottery.checkNumberOfBetsForDraw()) {
+				drawButton.setEnabled(false);
+				JOptionPane.showMessageDialog(panel, "The lottery has been drawn");
+			}
+		}
+		else {
+			wrongBetterNameNotification();
+		}
+	}
+
+	/**
+	 * Adds a number label and input field for
+	 * the amount of inputs allowed per bet
+	 */
 	private static void addLotteryInputFields() {
 		//	Adding as many fields as it is allowed for a bet
 		for (int i = 0; i < Lottery.MAX_NUMBERS_PER_BET; i++) {
@@ -193,6 +225,12 @@ public class LotteryUI {
 		}
 	}
 	
+	/**
+	 * Creates a label and an input field pair
+	 * for the passed text and length
+	 * @param labelText The text to be shown on the label
+	 * @param textFieldLength The length of the input should allow
+	 */
 	private static void addLabelAndInputPair(String labelText, int textFieldLength) {
 		// Create label and text field
 		JTextField textInput = new JTextField(textFieldLength);
@@ -218,6 +256,10 @@ public class LotteryUI {
 		rowIndexer++;
 	}
 	
+	/**
+	 * Adds a list panel to the UI
+	 * that will be used to display results
+	 */
 	private static void addList() {
 		JPanel listPanel = new JPanel();
 		JList<String> list = new JList<String>(listModel);
@@ -232,9 +274,11 @@ public class LotteryUI {
 		panel.add(listPanel, listConstraint);
 	}
 	
+	/**
+	 * Validates the user entry
+	 * @return a Bet if user input was ok
+	 */
 	private static Bet validateInput() {
-		
-		
 		Bet b = new Bet();
 		String betterName = lstOfInputs.get(0).getText().trim();
 		
@@ -281,16 +325,7 @@ public class LotteryUI {
 		
 		return b;
 	}
-	
-	public static void drawGameUI() {
-		String[] data = Lottery.drawGame();
-		for (String string : data) {
-			listModel.addElement(string);
-		}
-		
-		drawButton.setEnabled(false);
-		resetButton.setEnabled(true);
-	}
+
 	
 	private static void maxNameCountNotification() {
 		JOptionPane.showMessageDialog(panel, "Unfortunately, you have already submitted three bets. You can't bet any more.");
@@ -304,5 +339,23 @@ public class LotteryUI {
 	}
 	private static void duplicateNumberNotification(int duplicateIndex, int currentIndex) {
 		JOptionPane.showMessageDialog(panel, "Entries Number '" + duplicateIndex + "' and '" + currentIndex + "' are the same!");
+	}
+	
+	public static void updateBetNumberAndClearInputs() {
+		headerLabel.setText("Please enter your bet number " + Lottery.getBetIndexer() + ": ");
+		
+		for (int i = 1; i < lstOfInputs.size(); i++) {
+			lstOfInputs.get(i).setText("");
+		}
+	}
+	
+	public static void drawGameUI() {
+		String[] data = Lottery.drawGame();
+		for (String string : data) {
+			listModel.addElement(string);
+		}
+		
+		drawButton.setEnabled(false);
+		resetButton.setEnabled(true);
 	}
 }

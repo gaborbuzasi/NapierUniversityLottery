@@ -3,7 +3,7 @@
   associations="true" dependencies="true" nesting-relationships="true">  
   <class id="1" language="java" name="napierUniversityLottery.Lottery" project="GaborBuzasi_NUL" 
     file="/GaborBuzasi_NUL/src/napierUniversityLottery/Lottery.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="137" y="555"/>    
+    <position height="-1" width="-1" x="500" y="186"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="napierUniversityLottery.LotteryUI" project="GaborBuzasi_NUL" 
     file="/GaborBuzasi_NUL/src/napierUniversityLottery/LotteryUI.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="536" y="242"/>    
+    <position height="-1" width="-1" x="163" y="401"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="napierUniversityLottery.LotteryResult" project="GaborBuzasi_NUL" 
     file="/GaborBuzasi_NUL/src/napierUniversityLottery/LotteryResult.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="511" y="665"/>    
+    <position height="-1" width="-1" x="930" y="106"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="napierUniversityLottery.Bet" project="GaborBuzasi_NUL" 
     file="/GaborBuzasi_NUL/src/napierUniversityLottery/Bet.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="333" width="471" x="796" y="375"/>    
+    <position height="304" width="476" x="695" y="344"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,52 +39,49 @@
   </class>  
   <class id="5" language="java" name="napierUniversityLottery.ConversionHelpers" project="GaborBuzasi_NUL" 
     file="/GaborBuzasi_NUL/src/napierUniversityLottery/ConversionHelpers.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="145" y="263"/>    
+    <position height="-1" width="-1" x="154" y="77"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="6">    
-    <bendpoint x="528" y="570"/>    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="7" name="betsPlaced"/>      
-      <multiplicity id="8" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="9">    
+  <dependency id="6">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
-  <dependency id="10">    
+  <dependency id="7">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <dependency id="11">    
-    <bendpoint x="581" y="482"/>    
-    <bendpoint x="586" y="527"/>    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="12">    
+  <dependency id="8">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <dependency id="13">    
+  <dependency id="9">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="TARGET" refId="4"/>  
   </dependency>  
-  <association id="14">    
+  <association id="10">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="15" name="Bets"/>      
-      <multiplicity id="16" minimum="0" maximum="2147483647"/>    
+      <attribute id="11" name="Bets"/>      
+      <multiplicity id="12" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="13">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="14" name="betsPlaced"/>      
+      <multiplicity id="15" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="16">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
