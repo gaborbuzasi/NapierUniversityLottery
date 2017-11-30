@@ -1,5 +1,7 @@
 package napierUniversityLottery;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -39,6 +41,7 @@ public class ConversionHelpers {
 	 */
 	public static String arrayToCommaDelimited (List<Integer> numbers) {
 		StringBuilder result = new StringBuilder();
+		Collections.sort(numbers);
 		
 		for (Integer integer : numbers) {
 			result.append(integer);
