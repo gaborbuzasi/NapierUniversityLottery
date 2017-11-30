@@ -332,7 +332,9 @@ public class LotteryUI {
 	}
 
 	private static void wrongInputNotification(int indexer) {
-		JOptionPane.showMessageDialog(panel, "Please enter a number between 1 and 51 for number '" + indexer + "'");
+		JOptionPane.showMessageDialog(panel, "Please enter a number between " + 
+											  Lottery.MIN_NUMBER  + " and " + Lottery.MAX_NUMBER + 
+											  " for number '" + indexer + "'");
 	}
 	private static void wrongBetterNameNotification() {
 		JOptionPane.showMessageDialog(panel, "Please enter a name with at least 3 characters!");

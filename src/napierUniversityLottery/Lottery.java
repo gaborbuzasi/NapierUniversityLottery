@@ -16,8 +16,8 @@ public class Lottery {
 	public static final int MAXIMUM_BETS = 20;
 	public static final int MAX_NUMBERS_PER_BET = 6;
 	private static final int MAX_BETS_BY_PERSON = 3;
-	private static final int MIN_NUMBER = 1;
-	private static final int MAX_NUMBER = 50;
+	public static final int MIN_NUMBER = 1;
+	public static final int MAX_NUMBER = 50;
 	
 	
 	public static void main(String[] args) {
@@ -84,7 +84,13 @@ public class Lottery {
 		int sumOfPayin = 0;
 		
 		for (int i = 0; i < MAX_NUMBERS_PER_BET; i++) {
-			numbersDrawn.add(ThreadLocalRandom.current().nextInt(MIN_NUMBER, MAX_NUMBER + 1));
+			int random = 0;
+			
+			do {
+				random = ThreadLocalRandom.current().nextInt(MIN_NUMBER, MAX_NUMBER + 1);
+			} while (numbersDrawn.contains(random));
+			
+			numbersDrawn.add(random);
 		}
 		
 		output.add("The winning numbers are: " + ConversionHelpers.arrayToCommaDelimited(numbersDrawn));
